@@ -39,22 +39,7 @@
 </html>
 </script>
 
-
-<script type='text/coderdeck' id='coderdeck-style-example'>
-	<html>
-		<title>test</title>
-		<style>
-			CODE
-		</style>
-		<body>
-			<h1>I'm a H1 heading</h1>
-			<h2>I'm a H2 heading</h2>
-			<p>Pargraph of text &lt;p&gt; here</p>
-			<div class='stuff'>I'm a div &lt;div&gt; with class "stuff"</div>
-			<div id='my-div'>I'm a &lt;div&gt; with id "my-div"</div>
-		</body>
-	</html>
-</script> 	
+<div class='gist' type='text/coderdeck' id='coderdeck-style-example' data-gist-id='1263412'></div>	
 
 <article class='slide slide-subhead'>
 <h1>CoderDeck</h1>
@@ -70,26 +55,7 @@
 <p>Basic split code editor is created by adding a class of "coder-editor" to a textarea.
    Press run, then modify some code and press "run" again</p>
 
-<textarea class='coder-editor'>
-<header>
-  <h1>My Site!</h1>
-  <nav><ul>
-    <li><a href='#'>Link 1</a></li>
-    <li><a href='#'>Link 2</a></li>
-  </ul></nav>
-</header>
-
-<section id='content'>
-  <article class='blog-post'>
-    <h1>Blog Post 1</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac elit at nisl sagittis consequat sed eget tellus. Aliquam gravida, nunc sit amet viverra dictum, nibh justo semper massa</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac elit at nisl sagittis consequat sed eget tellus. Aliquam gravida, nunc sit amet viverra dictum, nibh justo semper massa</p>
-  </article>
-</section>
-<footer>
-  <a href='#'>Link 1</a> | <a href='#'>Link 2</a>
-</footer>	
-</textarea>
+<div class='gist' data-gist-classes='coder-editor' data-gist-id='1262553'></div>
 </article>
 
 <!-- Apply a class of "coder-editor-full" along with "coder-editor" to a textarea to make it show up as runnable code -->
@@ -98,26 +64,7 @@
 <p>Basic full page code editor is created by adding a class of "coder-editor-full" along with "coder-editor" to a textarea.
    Press run, then press "back", then modify some code and press "run" again</p>
 
-<textarea class='coder-editor coder-editor-full'>
-<header>
-  <h1>My Site!</h1>
-  <nav><ul>
-    <li><a href='#'>Link 1</a></li>
-    <li><a href='#'>Link 2</a></li>
-  </ul></nav>
-</header>
-
-<section id='content'>
-  <article class='blog-post'>
-    <h1>Blog Post 1</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac elit at nisl sagittis consequat sed eget tellus. Aliquam gravida, nunc sit amet viverra dictum, nibh justo semper massa</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac elit at nisl sagittis consequat sed eget tellus. Aliquam gravida, nunc sit amet viverra dictum, nibh justo semper massa</p>
-  </article>
-</section>
-<footer>
-  <a href='#'>Link 1</a> | <a href='#'>Link 2</a>
-</footer>	
-</textarea>
+<div class='gist' data-gist-classes='coder-editor coder-editor-full' data-gist-id='1262553'></div>
 </article>
 
 
@@ -126,16 +73,9 @@
 -->
 <article class='slide slide-list'>
 <h2>Custom template and custom language</h2>
-<p>Basic full page code editor is created by adding a class of "coder-editor-full" along with "coder-editor" to a textarea.
-   Press run, then press "back", then modify some code and press "run" again</p>
+<p>You can create custom reusable templates for wrapping the editor code with custom &lt;script&gt; tags. You can also specify the mode the editor should display (xml, css, javascript or the default htmlmixed ) </p>
 
-<textarea class='coder-editor' data-coder-template="coderdeck-style-example" data-language="css">
-h1 { color:blue; }
-h2 { color:red;}
-p  { color:pink;}
-.stuff  { color:purple;}
-#my-div { color:teal;}
-</textarea>
+<div class='gist' data-gist-classes='coder-editor' data-coder-template="coderdeck-style-example" data-language="css" data-gist-id='1263505'></div>
 </article>
 
 
@@ -145,13 +85,7 @@ p  { color:pink;}
 <h2>Instant Update Sample</h2>
 <p>Try modifying any of the HTML on the left, the right side should updated periodically as you type. This is done by adding a class of "coder-editor-instant" to the textarea</p>
 
-<textarea class='coder-editor coder-editor-instant' data-coder-template="coderdeck-style-example" data-language="css">
-h1 { color:blue; }
-h2 { color:red;}
-p  { color:pink;}
-.stuff  { color:purple;}
-#my-div { color:teal;}
-</textarea>
+<div class='gist' data-gist-classes='coder-editor coder-editor-instant' data-coder-template="coderdeck-style-example" data-language="css" data-gist-id='1263505'></div>
 </article>
 
 
@@ -159,24 +93,8 @@ p  { color:pink;}
 <article class='slide slide-list'>
 <h2>Javascript/jQuery Example</h2>
 <p> Javascript works normally as well, libraries and external css (including jquery) can be included in the coderdeck template.</p>
-<textarea class='coder-editor'>
-<script>
-  $(function() {
-    $(".box").animate({ 
-        'top':"50%", 
-        'left':"50%" });
-  });
-</script>
-<style>
-  .box { 
-    top:0px; left:0px;
-    width:50px; height:50px; 
-    position:absolute; 
-    background-color:red;
-  }
-</style>
-<div class='box'></div>
-</textarea>
+
+<div class='gist' data-gist-classes='coder-editor' data-gist-id='1263509'></div>
 </article>
 
 
