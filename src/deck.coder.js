@@ -189,77 +189,75 @@ jQuery(document).bind('deck.init',function() {
         }
       }
       
-      function loadGists(){
-        var getGists = function($gists) {
-          var getGist = function(gist) {
-            var $gist = $(gist),
-                gistId = $gist.attr('data-gist-id'),
-                url = 'https://api.github.com/gists/' + gistId + '?callback=?';
-                if(gistId !== undefined){
-                    return $.getJSON(url);
-                }
-            };
-            return $.map($gists, getGist);
-        },
-        gists = $('.gist'),
-        promises = getGists($('.gist'));
-
-        $.when
-            .apply(null, promises)
-            .then(function() {
-                var length = arguments.length;
-                while(length--){
-                    if(arguments[0].data !== undefined) {
-                        arguments = [arguments[0]];
-                    }
-                    else {
-                        arguments[length] = arguments[length][0];
-                    }
-                    
-                    arguments[length].el = gists[length];
-                }
-                
-                $.map(arguments, function(gist) {
-                    var content = gist.data.files["gistfile1.txt"].content,
-                        id = gist.data.id,
-                        $gist = $(gist.el),
-                        slide = $gist.parents('.slide'),
-                        type = $gist.attr('type'),
-                        classes = $gist.attr('data-gist-classes'),
-                        template = $gist.attr('data-coder-template') || '',
-                        language =  $gist.attr('data-language') || '',
-                        save = $gist.attr('data-save') || '';
-                    
-                    if(type === 'text/coderdeck') {
-                        $el = $('<script />')
-                            .attr('id', $gist.attr('id'))
-                            .attr('type', type);
-                    }
-                    else {
-                        $el = $('<textarea />');
-                    }
-                    
-                    $el.addClass(classes)
-                        .attr('data-coder-template', template)
-                        .attr('data-language', language)
-                        .attr('data-save', save)
-                        .text(content)
-                        .find("a")
-                            .attr('target','_blank')
-                            .end();
-                    
-                    $gist.after($el).remove();
-                     
-                    prepareSlide(slide.attr('data-slide-id'), slide);
-                });
-                
-            }, function() {
-                console.log("FAIL", this, arguments);
-            }
-        );
+      function getGist(gistId) {
+        url = 'https://api.github.com/gists/' + gistId + '?callback=?';
+        $.getJSON(url, function(gistData) {
+          var $gists = savedGistData[gistId],
+            length = $gists.length;
+          while(length--){
+            var $gist = $($gists[length]);
+            updateGistSlide( $gist, gistData );  
+          }
+        });
       }
       
-      loadGists();
+      function updateGistSlide($gist, gistData) {
+        var content = gistData.data.files["gistfile1.txt"].content,
+          id = gistData.data.id,
+          slide = $gist.parents('.slide'),
+          type = $gist.attr('type'),
+          classes = $gist.attr('data-gist-classes'),
+          template = $gist.attr('data-coder-template') || '',
+          language =  $gist.attr('data-language') || '',
+          save = $gist.attr('data-save') || '';
+        
+        if(type === 'text/coderdeck') {
+          $el = $('<script />')
+            .attr('id', $gist.attr('id'))
+            .attr('type', type);
+        }
+        else {
+          $el = $('<textarea />');
+        }
+        
+        $el.addClass(classes)
+          .attr('data-coder-template', template)
+          .attr('data-language', language)
+          .attr('data-save', save)
+          .text(content)
+          .find("a")
+            .attr('target','_blank')
+            .end();
+        
+        $gist.after($el).remove();
+         
+        prepareSlide(slide.attr('data-slide-id'), slide);
+      }
+      
+      var gists = $('.gist'),
+        savedGistData = {},
+        length = gists.length;
+      
+      //get all gist ids before making the ajax request
+      //useful if you are going to use one single gist more than once
+      while(length--){
+        var $gist = $(gists[length]);
+          gistId = $gist.attr('data-gist-id');
+          
+        if(gistId !== undefined) {
+          if(savedGistData[gistId] === undefined) {
+            savedGistData[gistId] = [$gist];
+          }
+          else {
+            savedGistData[gistId].push($gist);
+          }
+        }
+      }
+      
+      //foreach gist id, get the content
+      for(var id in savedGistData){
+        getGist(id);
+      }
       
       $("a").attr('target','_blank');
       $.each($[deck]('getSlides'), prepareSlide);
