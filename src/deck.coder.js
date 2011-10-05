@@ -13,10 +13,8 @@ var deckCoder = {
         var $d = $(document),
             $window = $(window);
         
-        $d.bind('deck.init',function() {
             $("a").attr('target','_blank');
             $.each($.deck('getSlides'), deckCoder.prepareSlide);
-        });
         
         
         $d.bind('deck.change',function(e,from,to) {
@@ -265,4 +263,7 @@ var deckCoder = {
         }
     }
 };
-deckCoder.init();
+
+$(document).bind('deck.init',function() {
+    deckCoder.init();
+});
